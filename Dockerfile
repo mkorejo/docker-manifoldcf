@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM openjdk:8-jre
 MAINTAINER LWB
 
 ENV MANIFOLDCF_VERSION 2.6
@@ -7,7 +7,6 @@ ENV CIFS_VERSION 1.3.18
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
     wget curl ca-certificates \
-    openjdk-7-jre-headless \
     gzip && \
   	rm -rf /var/lib/apt/lists/*
 

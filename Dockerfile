@@ -1,0 +1,7 @@
+FROM debian:jessie
+MAINTAINER LWB
+
+
+
+
+EXPOSE 8983

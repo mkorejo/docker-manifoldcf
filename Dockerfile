@@ -6,7 +6,7 @@ ENV MANIFOLDCF_VERSION 2.6
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
     wget curl ca-certificates \
-    openjdk-8-jre-headless \
+    openjdk-7-jre-headless \
     gzip
 
 RUN wget -O /tmp/manifoldcf.tar.gz wget http://apache.mirror.rafal.ca/manifoldcf/apache-manifoldcf-${MANIFOLDCF_VERSION}/apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \

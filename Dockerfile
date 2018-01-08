@@ -1,8 +1,8 @@
 FROM openjdk:8-jre
 MAINTAINER LWB
 
-ENV MANIFOLDCF_VERSION 2.8.1
-ENV CIFS_VERSION 1.3.18
+ENV MANIFOLDCF_VERSION 2.9
+ENV CIFS_VERSION 1.3.19
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \

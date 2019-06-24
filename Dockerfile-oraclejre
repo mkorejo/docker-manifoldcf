@@ -17,10 +17,11 @@ RUN wget http://apache.mirror.rafal.ca/manifoldcf/apache-manifoldcf-${MANIFOLDCF
 RUN sed -i "s/<!--repositoryconnector name=\"Windows shares\" class=\"org.apache.manifoldcf.crawler.connectors.sharedrive.SharedDriveConnector\"\/-->/<repositoryconnector name=\"Windows shares\" class=\"org.apache.manifoldcf.crawler.connectors.sharedrive.SharedDriveConnector\"\/>/g" /usr/share/manifoldcf/connectors.xml && \
 	sed -i "s/<property name=\"org.apache.manifoldcf.hsqldbdatabasepath\" value=\".\"\/>/<property name=\"org.apache.manifoldcf.hsqldbdatabasepath\" value=\"\/var\/manifoldcf\/\"\/>/g" /usr/share/manifoldcf/example/properties.xml
 
-COPY properties.xml .
-COPY entrypoint.sh /manifoldcf_entrypoint.sh
 EXPOSE 8345
 VOLUME /var/manifoldcf
 WORKDIR /usr/share/manifoldcf/example
+
+COPY properties.xml .
+COPY entrypoint.sh /manifoldcf_entrypoint.sh
 
 ENTRYPOINT ["/manifoldcf_entrypoint.sh", "start"]

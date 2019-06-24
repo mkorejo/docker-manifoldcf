@@ -3,11 +3,6 @@ FROM store/oracle/serverjre:8
 ENV MANIFOLDCF_VERSION 2.13
 ENV CIFS_VERSION 2.1.2
 
-WORKDIR /usr/share/manifoldcf/example
-
-COPY properties.xml .
-COPY entrypoint.sh /manifoldcf_entrypoint.sh
-
 RUN yum update -y && \
     DEBIAN_FRONTEND=noninteractive yum install -y \
     wget curl ca-certificates gzip && \
@@ -22,8 +17,10 @@ RUN wget http://apache.mirror.rafal.ca/manifoldcf/apache-manifoldcf-${MANIFOLDCF
 RUN sed -i "s/<!--repositoryconnector name=\"Windows shares\" class=\"org.apache.manifoldcf.crawler.connectors.sharedrive.SharedDriveConnector\"\/-->/<repositoryconnector name=\"Windows shares\" class=\"org.apache.manifoldcf.crawler.connectors.sharedrive.SharedDriveConnector\"\/>/g" /usr/share/manifoldcf/connectors.xml && \
 	sed -i "s/<property name=\"org.apache.manifoldcf.hsqldbdatabasepath\" value=\".\"\/>/<property name=\"org.apache.manifoldcf.hsqldbdatabasepath\" value=\"\/var\/manifoldcf\/\"\/>/g" /usr/share/manifoldcf/example/properties.xml
 
+COPY properties.xml .
+COPY entrypoint.sh /manifoldcf_entrypoint.sh
 EXPOSE 8345
-
 VOLUME /var/manifoldcf
+WORKDIR /usr/share/manifoldcf/example
 
 ENTRYPOINT ["/manifoldcf_entrypoint.sh", "start"]

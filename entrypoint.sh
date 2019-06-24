@@ -10,8 +10,7 @@ if [ "$1" = 'start' ]; then
   sed -i "s/\$POSTGRES_DB/$POSTGRES_DB/" $PROPS_FILE
   sed -i "s/\$POSTGRES_USER/$POSTGRES_USER/" $PROPS_FILE
   sed -i "s/\$POSTGRES_PASSWORD/$POSTGRES_PASSWORD/" $PROPS_FILE
-  /tmp/ibm-ucd-install/install-server.sh
-  exec /opt/ibm-ucd/server/bin/server run
+  exec java -jar start.jar
 
 elif [ "$1" = 'sleep' ]; then
   while true; do

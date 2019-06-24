@@ -3,6 +3,11 @@ FROM store/oracle/serverjre:8
 ENV MANIFOLDCF_VERSION 2.13
 ENV CIFS_VERSION 2.1.2
 
+WORKDIR /usr/share/manifoldcf/example
+
+COPY properties.xml .
+COPY entrypoint.sh /manifoldcf_entrypoint.sh
+
 RUN yum update -y && \
     DEBIAN_FRONTEND=noninteractive yum install -y \
     wget curl ca-certificates gzip && \
@@ -19,7 +24,6 @@ RUN sed -i "s/<!--repositoryconnector name=\"Windows shares\" class=\"org.apache
 
 EXPOSE 8345
 
-WORKDIR /usr/share/manifoldcf/example
 VOLUME /var/manifoldcf
 
-CMD ["java", "-jar", "start.jar"]
+ENTRYPOINT ["/manifoldcf_entrypoint.sh", "start"]

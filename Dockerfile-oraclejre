@@ -1,18 +1,19 @@
 FROM store/oracle/serverjre:8
 
-ENV MANIFOLDCF_VERSION 2.13
-ENV CIFS_VERSION 2.1.2
+ENV MANIFOLDCF_VERSION=2.13 CIFS_VERSION=2.1.2
+ENV POSTGRES_HOSTNAME=localhost POSTGRES_PORT=5432 POSTGRES_SSL=true POSTGRES_USER=manifoldcf POSTGRES_DB=manifoldcf
 
-RUN yum update -y && \
-    DEBIAN_FRONTEND=noninteractive yum install -y \
-    wget curl ca-certificates gzip && \
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh
+RUN DEBIAN_FRONTEND=noninteractive yum install -y wget ca-certificates && \
   	rm -rf /var/lib/apt/lists/*
 
 RUN wget http://apache.mirror.rafal.ca/manifoldcf/apache-manifoldcf-${MANIFOLDCF_VERSION}/apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
     wget https://repo.maven.apache.org/maven2/eu/agno3/jcifs/jcifs-ng/${CIFS_VERSION}/jcifs-ng-${CIFS_VERSION}.jar && \
     tar -xzvf apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
     cp -R apache-manifoldcf-${MANIFOLDCF_VERSION} /usr/share/manifoldcf && \
-    cp jcifs-ng-${CIFS_VERSION}.jar /usr/share/manifoldcf/connector-lib-proprietary
+    cp jcifs-ng-${CIFS_VERSION}.jar /usr/share/manifoldcf/connector-lib-proprietary && \
+    chmod +x /wait-for-it.sh && \
+    rm apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz jcifs-ng-${CIFS_VERSION}.jar
 
 RUN sed -i "s/<!--repositoryconnector name=\"Windows shares\" class=\"org.apache.manifoldcf.crawler.connectors.sharedrive.SharedDriveConnector\"\/-->/<repositoryconnector name=\"Windows shares\" class=\"org.apache.manifoldcf.crawler.connectors.sharedrive.SharedDriveConnector\"\/>/g" /usr/share/manifoldcf/connectors.xml && \
 	sed -i "s/<property name=\"org.apache.manifoldcf.hsqldbdatabasepath\" value=\".\"\/>/<property name=\"org.apache.manifoldcf.hsqldbdatabasepath\" value=\"\/var\/manifoldcf\/\"\/>/g" /usr/share/manifoldcf/example/properties.xml
@@ -24,4 +25,6 @@ WORKDIR /usr/share/manifoldcf/example
 COPY properties.xml .
 COPY entrypoint.sh /manifoldcf_entrypoint.sh
 
-ENTRYPOINT ["/manifoldcf_entrypoint.sh", "start"]
+# ENTRYPOINT overrides default of `/bin/sh -c`
+ENTRYPOINT ["/wait-for-it.sh"]
+CMD ["${POSTGRES_HOSTNAME}:${POSTGRES_PORT}", "--", "/manifoldcf_entrypoint.sh", "start"]

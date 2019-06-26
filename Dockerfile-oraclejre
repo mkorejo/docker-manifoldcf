@@ -26,5 +26,5 @@ COPY properties.xml .
 COPY entrypoint.sh /manifoldcf_entrypoint.sh
 
 # ENTRYPOINT overrides default of `/bin/sh -c`
-ENTRYPOINT ["/wait-for-it.sh"]
-CMD ["${POSTGRES_HOSTNAME}:${POSTGRES_PORT}", "--", "/manifoldcf_entrypoint.sh", "start"]
+ENTRYPOINT ["/manifoldcf_entrypoint.sh"]
+CMD ["start"]

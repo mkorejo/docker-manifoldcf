@@ -5,21 +5,21 @@ services:
     environment:
       # By default, POSTGRES_DB equals POSTGRES_USER. If you override POSTGRES_DB here then you must also override in manifoldcf-web.
       POSTGRES_USER: manifoldcf
-      POSTGRES_PASSWORD: man1f0ldcf!
+      POSTGRES_PASSWORD: "man1f0ldcf!"
     volumes:
       - /var/lib/postgresql/data
     ports:
-      - 54320:5432
+      - 5432
   manifoldcf-web:
     image: perficientdevops/manifoldcf:oraclejre
     depends_on:
       - manifoldcf-db
     environment:
       POSTGRES_HOSTNAME: manifoldcf-db
-      POSTGRES_PORT: 54320
-      POSTGRES_PASSWORD: man1f0ldcf!
-      POSTGRES_SSL: "true"
+      POSTGRES_PORT: 5432
+      POSTGRES_PASSWORD: "man1f0ldcf!"
+      POSTGRES_SSL: "false"
     volumes:
       - /var/manifoldcf
     ports:
-      - 8345:8345
+      - 8345

@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+sh /wait-for-it.sh $POSTGRES_HOSTNAME:$POSTGRES_PORT
+
 PROPS_FILE='/usr/share/manifoldcf/example/properties.xml'
 
 if [ "$1" = 'start' ]; then

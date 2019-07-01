@@ -1,7 +1,11 @@
 FROM openjdk:8-jre
 
-ENV MANIFOLDCF_VERSION 2.13
-ENV CIFS_VERSION 2.1.2
+ENV MANIFOLDCF_VERSION=2.13 CIFS_VERSION=2.1.2
+ENV POSTGRES_HOSTNAME=localhost POSTGRES_PORT=5432 POSTGRES_SSL=true POSTGRES_USER=manifoldcf POSTGRES_DB=manifoldcf
+
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget ca-certificates && \
+  	rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
@@ -18,8 +22,13 @@ RUN sed -i "s/<!--repositoryconnector name=\"Windows shares\" class=\"org.apache
 	sed -i "s/<property name=\"org.apache.manifoldcf.hsqldbdatabasepath\" value=\".\"\/>/<property name=\"org.apache.manifoldcf.hsqldbdatabasepath\" value=\"\/var\/manifoldcf\/\"\/>/g" /usr/share/manifoldcf/example/properties.xml
 
 EXPOSE 8345
-
-WORKDIR /usr/share/manifoldcf/example
 VOLUME /var/manifoldcf
+WORKDIR /usr/share/manifoldcf/example
 
-CMD ["java", "-jar", "start.jar"]
+COPY properties.xml .
+COPY entrypoint.sh /manifoldcf_entrypoint.sh
+
+# ENTRYPOINT overrides default of `/bin/sh -c`
+ENTRYPOINT ["/manifoldcf_entrypoint.sh"]
+# CMD ["java", "-jar", "start.jar"]
+CMD ["start"]

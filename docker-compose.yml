@@ -11,8 +11,7 @@ services:
     ports:
       - 5432
   manifoldcf-web:
-    # The image here can be interchangeable between openjdk and oraclejre
-    image: chadlei/manifoldcf:openjdk
+    image: perficientdevops/manifoldcf:2.13-oraclejre
     depends_on:
       - manifoldcf-db
     environment:

@@ -7,11 +7,12 @@ services:
       POSTGRES_USER: manifoldcf
       POSTGRES_PASSWORD: "man1f0ldcf!"
     volumes:
-      - /home/ec2-user/manifoldcf-pgdata:/var/lib/postgresql/data
+      - /var/lib/postgresql/data
     ports:
       - 5432
   manifoldcf-web:
     image: perficientdevops/manifoldcf:2.13-oraclejre
+    # image: perficientdevops/manifoldcf:2.13-openjdk
     depends_on:
       - manifoldcf-db
     environment:

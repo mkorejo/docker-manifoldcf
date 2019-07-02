@@ -8,19 +8,14 @@ RUN DEBIAN_FRONTEND=noninteractive yum install -y wget ca-certificates && \
   	rm -rf /var/lib/apt/lists/*
 
 RUN wget http://apache.mirror.rafal.ca/manifoldcf/apache-manifoldcf-${MANIFOLDCF_VERSION}/apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
-    wget https://repo.maven.apache.org/maven2/eu/agno3/jcifs/jcifs-ng/${CIFS_VERSION}/jcifs-ng-${CIFS_VERSION}.jar && \
     tar -xzvf apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
     cp -R apache-manifoldcf-${MANIFOLDCF_VERSION} /usr/share/manifoldcf && \
-    cp jcifs-ng-${CIFS_VERSION}.jar /usr/share/manifoldcf/connector-lib-proprietary && \
     chmod +x /wait-for-it.sh && \
-    rm apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz jcifs-ng-${CIFS_VERSION}.jar
-
-RUN sed -i "s/<!--repositoryconnector name=\"Windows shares\" class=\"org.apache.manifoldcf.crawler.connectors.sharedrive.SharedDriveConnector\"\/-->/<repositoryconnector name=\"Windows shares\" class=\"org.apache.manifoldcf.crawler.connectors.sharedrive.SharedDriveConnector\"\/>/g" /usr/share/manifoldcf/connectors.xml && \
-	sed -i "s/<property name=\"org.apache.manifoldcf.hsqldbdatabasepath\" value=\".\"\/>/<property name=\"org.apache.manifoldcf.hsqldbdatabasepath\" value=\"\/var\/manifoldcf\/\"\/>/g" /usr/share/manifoldcf/example/properties.xml
+    rm apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz
 
 EXPOSE 8345
 VOLUME /var/manifoldcf
-WORKDIR /usr/share/manifoldcf/example
+WORKDIR /usr/share/manifoldcf/multiprocess-file-example
 
 COPY properties.xml .
 COPY entrypoint.sh /manifoldcf_entrypoint.sh

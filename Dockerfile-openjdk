@@ -17,7 +17,7 @@ EXPOSE 8345
 VOLUME /var/manifoldcf
 WORKDIR /usr/share/manifoldcf/multiprocess-file-example
 
-COPY properties.xml .
+COPY jetty-options.env.unix properties.xml ./
 COPY entrypoint.sh /manifoldcf_entrypoint.sh
 
 # ENTRYPOINT overrides default of `/bin/sh -c`

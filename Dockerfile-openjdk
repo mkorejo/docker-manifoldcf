@@ -1,13 +1,11 @@
 FROM openjdk:8-jre
 
-ENV MANIFOLDCF_VERSION=2.11 CIFS_VERSION=2.1.2
+ENV MANIFOLDCF_VERSION=2.11 
 ENV POSTGRES_HOSTNAME=localhost POSTGRES_PORT=5432 POSTGRES_SSL=true POSTGRES_USER=manifoldcf POSTGRES_DB=manifoldcf
 
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget ca-certificates && \
   	rm -rf /var/lib/apt/lists/*
-
-# http://apache.mirror.rafal.ca/manifoldcf/apache-manifoldcf-${MANIFOLDCF_VERSION}/apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
 
 RUN wget http://archive.apache.org/dist/manifoldcf/apache-manifoldcf-${MANIFOLDCF_VERSION}/apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
     tar -xzvf apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \

@@ -1,7 +1,7 @@
 version: "3"
 services:
   manifoldcf-db:
-    image: postgres:9.3.22
+    image: postgres:9.6
     environment:
       # By default, POSTGRES_DB equals POSTGRES_USER. If you override POSTGRES_DB here then you must also override in manifoldcf-web.
       POSTGRES_USER: manifoldcf

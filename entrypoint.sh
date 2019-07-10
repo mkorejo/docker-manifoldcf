@@ -1,5 +1,5 @@
 #!/bin/sh
-sh /wait-for-it.sh $POSTGRES_HOSTNAME:$POSTGRES_PORT
+bash /wait-for-it.sh $POSTGRES_HOSTNAME:$POSTGRES_PORT
 
 PROPS_FILE='./properties.xml'
 
@@ -17,6 +17,7 @@ if [ "$1" = 'start' ]; then
   echo "Initializing DB ..."
   sh initialize.sh
 
+  # Run this script in background so we can also run the start-webapps script
   echo "Starting agents ..."
   sh start-agents.sh &
 

@@ -1,14 +1,14 @@
 # Apache ManifoldCF with Postgres
+Docker image with Apache ManifoldCF configured to run with Postgres, and startup the agents and web application using separate Java processes.
 
+### Build, Push, and Run with `docker-compose`
+1. docker build -t perficientdevops/manifoldcf:2.11 .
+1. docker push perficientdevops/manifoldcf
+1. docker-compose up -d
 
-(url):8345/mcf-crawler-ui
+To connect:
+1. env | grep `DOCKER`
+1. Make note of the `DOCKER_HOST` IP address
+1. `curl -L http://{DOCKER_HOST}:8345/mcf-crawler-ui` or [http://{DOCKER_HOST}:8345/mcf-crawler-ui](http://{DOCKER_HOST}:8345/mcf-crawler-ui) in a browser
 
-1. docker build -t perficientdevops/manifoldcf:2.13-openjdk -f Dockerfile-openjdk .
-
-2. docker-compose up -d
-
-3. env | grep DOCKER
-
-4. copy the DOCKER_HOST address
-
-5. curl -L http://{DOCKER_HOST address}:8345/mcf-crawler-ui
+### Run with Kubernetes

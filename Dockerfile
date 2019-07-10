@@ -1,13 +1,13 @@
-FROM store/oracle/serverjre:8
+FROM openjdk:8u212-jre-slim
 
-ENV MANIFOLDCF_VERSION=2.13 CIFS_VERSION=2.1.2
+ENV MANIFOLDCF_VERSION=2.11
 ENV POSTGRES_HOSTNAME=localhost POSTGRES_PORT=5432 POSTGRES_SSL=true POSTGRES_USER=manifoldcf POSTGRES_DB=manifoldcf
 
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh
-RUN DEBIAN_FRONTEND=noninteractive yum install -y wget ca-certificates && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y wget && \
   	rm -rf /var/lib/apt/lists/*
 
-RUN wget http://apache.mirror.rafal.ca/manifoldcf/apache-manifoldcf-${MANIFOLDCF_VERSION}/apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
+RUN wget http://archive.apache.org/dist/manifoldcf/apache-manifoldcf-${MANIFOLDCF_VERSION}/apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
     tar -xzvf apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
     cp -R apache-manifoldcf-${MANIFOLDCF_VERSION} /usr/share/manifoldcf && \
     chmod +x /wait-for-it.sh && \
@@ -17,6 +17,7 @@ EXPOSE 8345
 VOLUME /var/manifoldcf
 WORKDIR /usr/share/manifoldcf/multiprocess-file-example
 
+COPY connectors.xml /usr/share/manifoldcf
 COPY jetty-options.env.unix properties.xml ./
 COPY entrypoint.sh /manifoldcf_entrypoint.sh
 

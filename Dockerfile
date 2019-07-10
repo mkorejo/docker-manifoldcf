@@ -5,13 +5,13 @@ ENV POSTGRES_HOSTNAME=localhost POSTGRES_PORT=5432 POSTGRES_SSL=true POSTGRES_US
 
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y wget && \
-  	rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/*
 
 RUN wget http://archive.apache.org/dist/manifoldcf/apache-manifoldcf-${MANIFOLDCF_VERSION}/apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
-    tar -xzvf apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
-    cp -R apache-manifoldcf-${MANIFOLDCF_VERSION} /usr/share/manifoldcf && \
-    chmod +x /wait-for-it.sh && \
-    rm apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz
+  tar -xzvf apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz && \
+  cp -R apache-manifoldcf-${MANIFOLDCF_VERSION} /usr/share/manifoldcf && \
+  chmod +x /wait-for-it.sh && \
+  rm apache-manifoldcf-${MANIFOLDCF_VERSION}-bin.tar.gz
 
 EXPOSE 8345
 VOLUME /var/manifoldcf

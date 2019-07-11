@@ -23,6 +23,8 @@ if [ "$1" = 'start' ]; then
 
   echo "Starting web application ..."
   sh start-webapps.sh
+
+# Run this image with CMD `sleep` just to keep it running and debug
 elif [ "$1" = 'sleep' ]; then
   while true; do
     echo "running sleep";

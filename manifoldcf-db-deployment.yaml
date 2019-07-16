@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.18.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: manifoldcf-db
+  name: manifoldcf-db
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: manifoldcf-db
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_PASSWORD
+          value: man1f0ldcf!
+        - name: POSTGRES_USER
+          value: manifoldcf
+        image: postgres:9.6.14
+        name: manifoldcf-db
+        ports:
+        - containerPort: 5432
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: manifoldcf-db-claim0
+      restartPolicy: Always
+      volumes:
+      - name: manifoldcf-db-claim0
+        persistentVolumeClaim:
+          claimName: manifoldcf-db-claim0
+status: {}

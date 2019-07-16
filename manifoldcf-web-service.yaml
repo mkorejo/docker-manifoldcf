@@ -1,14 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: "2019-07-16T16:56:56Z"
-  labels:
-    io.kompose.service: manifoldcf-web
   name: manifoldcf-web
   namespace: default
-  resourceVersion: "56858"
-  selfLink: /api/v1/namespaces/default/services/manifoldcf-web
-  uid: b86f0fb8-a7ea-11e9-b480-080027cc8bb9
 spec:
   clusterIP: 10.102.231.51
   externalTrafficPolicy: Cluster
@@ -21,5 +15,3 @@ spec:
     io.kompose.service: manifoldcf-web
   sessionAffinity: None
   type: LoadBalancer
-status:
-  loadBalancer: {}

@@ -1,10 +1,6 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.18.0 ()
-  creationTimestamp: null
   labels:
     io.kompose.service: manifoldcf-web
   name: manifoldcf-web
@@ -14,7 +10,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: manifoldcf-web
     spec:
@@ -41,4 +36,3 @@ spec:
       - name: manifoldcf-web-claim0
         persistentVolumeClaim:
           claimName: manifoldcf-web-claim0
-status: {}

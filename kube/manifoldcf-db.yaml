@@ -1,23 +1,11 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  labels:
-    app: manifoldcf-db
-  name: manifoldcf-db-claim
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
----
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps/v1beta1
+kind: StatefulSet
 metadata:
   labels:
     app: manifoldcf-db
   name: manifoldcf-db
 spec:
+  serviceName: manifoldcf-db-svc
   replicas: 1
   template:
     metadata:
@@ -35,14 +23,20 @@ spec:
         ports:
         - containerPort: 5432
         resources: {}
+        # https://stackoverflow.com/a/51174380
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: manifoldcf-db-vol
+          subPath: manifoldcf
       restartPolicy: Always
-      volumes:
-      - name: manifoldcf-db-vol
-        persistentVolumeClaim:
-          claimName: manifoldcf-db-claim
+  volumeClaimTemplates:
+  - metadata:
+      name: manifoldcf-db-vol
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Mi
 ---
 apiVersion: v1
 kind: Service

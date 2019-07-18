@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: manifoldcf-web
+  name: manifoldcf-web
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: manifoldcf-web
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_HOSTNAME
+          value: manifoldcf-db
+        - name: POSTGRES_PASSWORD
+          value: man1f0ldcf!
+        - name: POSTGRES_PORT
+          value: "5432"
+        - name: POSTGRES_SSL
+          value: "false"
+        image: perficientdevops/manifoldcf:2.11
+        name: manifoldcf-web
+        ports:
+        - containerPort: 8345
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/manifoldcf
+          name: manifoldcf-web-claim0
+      restartPolicy: Always
+      volumes:
+      - name: manifoldcf-web-claim0
+        persistentVolumeClaim:
+          claimName: manifoldcf-web-claim0

@@ -1,6 +1,8 @@
 # Apache ManifoldCF with Postgres
 Docker image with Apache ManifoldCF configured to run with Postgres, and startup the agents and web application using separate Java processes.
 
+[![](https://dockerbuildbadges.quelltext.eu/status.svg?organization=perficientdevops&repository=manifoldcf&tag=master)](https://hub.docker.com/r/niccokunzmann/dockerhub-build-status-image/builds/)
+
 ### Build, Push, and Run with `docker-compose`
 1. `docker build -t perficientdevops/manifoldcf:2.11 .`
 1. `docker push perficientdevops/manifoldcf`

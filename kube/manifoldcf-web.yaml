@@ -1,24 +1,35 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: manifoldcf-web
+  name: manifoldcf-web-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    io.kompose.service: manifoldcf-web
+    app: manifoldcf-web
   name: manifoldcf-web
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
-        io.kompose.service: manifoldcf-web
+        app: manifoldcf-web
     spec:
       containers:
       - env:
         - name: POSTGRES_HOSTNAME
-          value: manifoldcf-db
+          value: manifoldcf-db-svc
         - name: POSTGRES_PASSWORD
-          value: man1f0ldcf!
+          value: "man1f0ldcf!"
         - name: POSTGRES_PORT
           value: "5432"
         - name: POSTGRES_SSL
@@ -30,9 +41,22 @@ spec:
         resources: {}
         volumeMounts:
         - mountPath: /var/manifoldcf
-          name: manifoldcf-web-claim0
+          name: manifoldcf-web-vol
       restartPolicy: Always
       volumes:
-      - name: manifoldcf-web-claim0
+      - name: manifoldcf-web-vol
         persistentVolumeClaim:
-          claimName: manifoldcf-web-claim0
+          claimName: manifoldcf-web-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: manifoldcf-web
+spec:
+  ports:
+  - port: 8345
+    protocol: TCP
+    targetPort: 8345
+  selector:
+    app: manifoldcf-web
+  type: NodePort

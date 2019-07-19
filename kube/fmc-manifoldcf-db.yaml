@@ -20,7 +20,7 @@ spec:
           value: manifoldcf
         - name: POSTGRES_DATABASE
           value: manifoldcf
-        image: postgres:9.6.14
+        image: registry.redhat.io/rhscl/postgresql-10-rhel7:1-26.1543825662
         name: manifoldcf-db
         ports:
         - containerPort: 5432

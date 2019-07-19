@@ -51,7 +51,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: manifoldcf-web
+  name: manifoldcf-web-svc
 spec:
   ports:
   - port: 8345

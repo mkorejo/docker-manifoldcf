@@ -1,0 +1,53 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  labels:
+    app: manifoldcf-db
+  name: manifoldcf-db
+spec:
+  serviceName: manifoldcf-db-svc
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: manifoldcf-db
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_PASSWORD
+          value: manifoldcf
+        - name: POSTGRES_USER
+          value: manifoldcf
+        - name: POSTGRES_DATABASE
+          value: manifoldcf
+        image: registry.redhat.io/rhscl/postgresql-10-rhel7:1-26.1543825662
+        name: manifoldcf-db
+        ports:
+        - containerPort: 5432
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: manifoldcf-db-vol
+      restartPolicy: Always
+  volumeClaimTemplates:
+  - metadata:
+      name: manifoldcf-db-vol
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: manifoldcf-db
+  name: manifoldcf-db-svc
+spec:
+  ports:
+  - name: postgres
+    port: 5432
+    targetPort: 5432
+  selector:
+    app: manifoldcf-db

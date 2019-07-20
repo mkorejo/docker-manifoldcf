@@ -3,6 +3,8 @@ FROM openjdk:8u212-jre-slim
 ENV MANIFOLDCF_VERSION=2.11
 ENV POSTGRES_HOSTNAME=localhost POSTGRES_PORT=5432 POSTGRES_SSL=true POSTGRES_USER=manifoldcf POSTGRES_DB=manifoldcf
 
+USER manifoldcf:manifoldcf
+
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y wget && \
   rm -rf /var/lib/apt/lists/*

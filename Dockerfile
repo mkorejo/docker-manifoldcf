@@ -4,7 +4,7 @@ ENV MANIFOLDCF_VERSION=2.11
 ENV POSTGRES_HOSTNAME=localhost POSTGRES_PORT=5432 POSTGRES_SSL=true POSTGRES_USER=manifoldcf POSTGRES_DB=manifoldcf
 
 RUN groupadd manifoldcf
-RUN useradd -ms /bin/bash manifoldcf
+RUN useradd -ms /bin/bash -G manifoldcf manifoldcf
 USER manifoldcf:manifoldcf
 
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh

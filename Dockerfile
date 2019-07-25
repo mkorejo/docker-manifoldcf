@@ -22,9 +22,7 @@ COPY connectors.xml /usr/share/manifoldcf
 COPY jetty-options.env.unix properties.xml ./
 COPY entrypoint.sh /manifoldcf_entrypoint.sh
 
-RUN chmod -R u+x /var/manifoldcf /usr/share/manifoldcf /manifoldcf_entrypoint.sh && \
-  chgrp -R 0 /var/manifoldcf /usr/share/manifoldcf /manifoldcf_entrypoint.sh
-
+RUN chown -R 1001 /wait-for-it.sh /var/manifoldcf /usr/share/manifoldcf /manifoldcf_entrypoint.sh
 USER 1001
 
 # ENTRYPOINT overrides default of `/bin/sh -c`

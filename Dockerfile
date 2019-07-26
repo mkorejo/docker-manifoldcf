@@ -23,7 +23,7 @@ COPY jetty-options.env.unix properties.xml ./
 COPY entrypoint.sh /manifoldcf_entrypoint.sh
 
 RUN chmod -R u+x /wait-for-it.sh /var/manifoldcf /usr/share/manifoldcf /manifoldcf_entrypoint.sh && \
-  chgrp -R 0 /wait-for-it.sh /var/manifoldcf /usr/share/manifoldcf /manifoldcf_entrypoint.sh
+  chgrp -R 0 /wait-for-it.sh /var/manifoldcf /usr/share/manifoldcf /manifoldcf_entrypoint.sh && \
   chown -R 1001 /wait-for-it.sh /var/manifoldcf /usr/share/manifoldcf /manifoldcf_entrypoint.sh
 USER 1001
 

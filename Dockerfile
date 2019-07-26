@@ -24,7 +24,7 @@ COPY entrypoint.sh /manifoldcf_entrypoint.sh
 
 RUN chgrp -R 0 /wait-for-it.sh /var/manifoldcf /usr/share/manifoldcf /manifoldcf_entrypoint.sh && \
   chmod -R g=u /wait-for-it.sh /var/manifoldcf /usr/share/manifoldcf /manifoldcf_entrypoint.sh && \
-  chmod +x initialize.sh start-agents.sh start-webapps.sh
+  chmod +x initialize.sh executecommand.sh start-agents.sh start-webapps.sh
 USER 1001
 
 # ENTRYPOINT overrides default of `/bin/sh -c`

@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
       - env:
-        - name: POSTGRES_PASSWORD
+        - name: POSTGRESQL_PASSWORD
           value: manifoldcf
-        - name: POSTGRES_USER
+        - name: POSTGRESQL_USER
           value: manifoldcf
-        - name: POSTGRES_DATABASE
+        - name: POSTGRESQL_DATABASE
           value: manifoldcf
         image: registry.redhat.io/rhscl/postgresql-10-rhel7:1-26.1543825662
         name: manifoldcf-db
@@ -36,7 +36,7 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 100Mi
+          storage: 1Gi
 ---
 apiVersion: v1
 kind: Service

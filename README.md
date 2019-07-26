@@ -11,6 +11,6 @@ Docker image with Apache ManifoldCF configured to run with Postgres, and startup
 To connect:
 1. `env | grep DOCKER`
 1. Make note of the `DOCKER_HOST` IP address
-1. `curl -L http://{DOCKER_HOST}:8345/mcf-crawler-ui` or [http://{DOCKER_HOST}:8345/mcf-crawler-ui](http://{DOCKER_HOST}:8345/mcf-crawler-ui) in a browser
+1. `curl -L http://$DOCKER_HOST:8345/mcf-crawler-ui` or [http://$DOCKER_HOST:8345/mcf-crawler-ui](http://$DOCKER_HOST:8345/mcf-crawler-ui) in a browser
 
 ### Run with Kubernetes

@@ -12,8 +12,6 @@ sed -i "s/\$POSTGRES_USER/$POSTGRES_USER/" $PROPS_FILE
 sed -i "s/\$POSTGRES_PASSWORD/$POSTGRES_PASSWORD/" $PROPS_FILE
 
 if [ "$1" = 'start' ]; then
-  chmod +x *.sh
-
   echo "Initializing DB ..."
   sh initialize.sh
 

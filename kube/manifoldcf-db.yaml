@@ -26,8 +26,9 @@ spec:
         - containerPort: 5432
         resources: {}
         volumeMounts:
-        - mountPath: /opt/app-root/src
+        - mountPath: /opt/app-root/src/postgresql-cfg/postgres.conf
           name: postgresql-config-vol
+          subPath: postgres.conf
         - mountPath: /var/lib/pgsql/data
           name: manifoldcf-db-vol
       restartPolicy: Always

@@ -1,13 +1,14 @@
 version: "3"
 services:
   manifoldcf-db:
-    image: postgres:9.6.14
+    image: registry.access.redhat.com/rhscl/postgresql-96-rhel7
     environment:
-      # By default, POSTGRES_DB equals POSTGRES_USER. If you override POSTGRES_DB here then you must also override in manifoldcf-web.
-      POSTGRES_USER: manifoldcf
-      POSTGRES_PASSWORD: "man1f0ldcf!"
+      POSTGRESQL_DATABASE: manifoldcf
+      POSTGRESQL_USER: manifoldcf
+      POSTGRESQL_PASSWORD: "man1f0ldcf!"
     volumes:
-      - /var/lib/postgresql/data
+      - /var/lib/pgsql/data
+      - ./postgresql:/opt/app-root/src
     ports:
       - 5432
   manifoldcf-web:
@@ -18,7 +19,7 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_PASSWORD: "man1f0ldcf!"
       POSTGRES_SSL: "false"
-    image: perficientdevops/manifoldcf:2.11
+    image: perficientdevops/manifoldcf:2.11-v2
     ports:
       - 8345:8345
     volumes:

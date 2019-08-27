@@ -14,26 +14,32 @@ spec:
     spec:
       containers:
       - env:
-        - name: POSTGRES_PASSWORD
-          value: "man1f0ldcf!"
-        - name: POSTGRES_USER
+        - name: POSTGRESQL_DATABASE
           value: manifoldcf
-        - name: PGDATA
-          value: /var/lib/postgresql/data/manifoldcf
-        image: postgres:9.6.14
+        - name: POSTGRESQL_USER
+          value: manifoldcf
+        - name: POSTGRESQL_PASSWORD
+          value: "man1f0ldcf!"
+        image: registry.access.redhat.com/rhscl/postgresql-96-rhel7
         name: manifoldcf-db
         ports:
         - containerPort: 5432
         resources: {}
         volumeMounts:
-        - mountPath: /var/lib/postgresql/data
+        - mountPath: /opt/app-root/src
+          name: postgresql-config-vol
+        - mountPath: /var/lib/pgsql/data
           name: manifoldcf-db-vol
       restartPolicy: Always
+      volumes:
+        - name: postgresql-config-vol
+          configMap:
+            name: postgresql-config
   volumeClaimTemplates:
   - metadata:
       name: manifoldcf-db-vol
     spec:
-      accessModes: [ "ReadWriteOnce" ]
+      accessModes: [ "ReadWriteMany" ]
       resources:
         requests:
           storage: 1Gi

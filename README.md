@@ -13,4 +13,8 @@ To connect:
 1. Make note of the `DOCKER_HOST` IP address
 1. `curl -L http://$DOCKER_HOST:8345/mcf-crawler-ui` or [http://$DOCKER_HOST:8345/mcf-crawler-ui](http://$DOCKER_HOST:8345/mcf-crawler-ui) in a browser
 
-### Run with Kubernetes
+### Run with Kubernetes/OpenShift
+```
+kubectl create configmap postgresql-config --from-file=postgresql/postgresql-cfg/postgres.conf
+kubectl apply -f kube/
+```

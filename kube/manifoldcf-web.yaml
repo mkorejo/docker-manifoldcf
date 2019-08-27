@@ -6,10 +6,10 @@ metadata:
   name: manifoldcf-web-claim
 spec:
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
   resources:
     requests:
-      storage: 100Mi
+      storage: 1Gi
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -34,7 +34,13 @@ spec:
           value: "5432"
         - name: POSTGRES_SSL
           value: "false"
-        image: perficientdevops/manifoldcf:2.11
+        image: perficientdevops/manifoldcf:2.11-v2
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - /liveliness.sh
+          initialDelaySeconds: 20
         name: manifoldcf-web
         ports:
         - containerPort: 8345
@@ -59,4 +65,4 @@ spec:
     targetPort: 8345
   selector:
     app: manifoldcf-web
-  type: NodePort
+  type: ClusterIP

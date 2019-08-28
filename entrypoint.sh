@@ -13,14 +13,14 @@ sed -i "s/\$POSTGRES_PASSWORD/$POSTGRES_PASSWORD/" $PROPS_FILE
 
 if [ "$1" = 'start' ]; then
   echo "Initializing DB ..."
-  sh initialize.sh
+  ./initialize.sh
 
   # Run this script in background so we can also run the start-webapps script
   echo "Starting agents ..."
-  sh start-agents.sh &
+  ./start-agents.sh > agent-1.log 2>&1 &
 
   echo "Starting web application ..."
-  sh start-webapps.sh
+  ./start-webapps.sh
 
 # Run this image with CMD `sleep` just to keep it running and debug
 elif [ "$1" = 'sleep' ]; then

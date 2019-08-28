@@ -15,6 +15,6 @@ To connect:
 
 ### Run with Kubernetes/OpenShift
 ```
-kubectl create configmap postgresql-config --from-file=postgresql/postgresql-cfg/postgres.conf
+kubectl create configmap postgresql-config --from-file=postgresql-cfg/postgres.conf
 kubectl apply -f kube/
 ```

@@ -8,7 +8,7 @@ services:
       POSTGRESQL_PASSWORD: "man1f0ldcf!"
     volumes:
       - /var/lib/pgsql/data
-      - ./postgresql:/opt/app-root/src
+      - ./postgresql-cfg:/opt/app-root/src/postgresql-cfg
     ports:
       - 5432
   manifoldcf-web:

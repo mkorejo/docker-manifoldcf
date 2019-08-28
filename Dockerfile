@@ -25,7 +25,7 @@ COPY liveliness.sh /liveliness.sh
 
 RUN chgrp -R 0 /wait-for-it.sh /var/manifoldcf /usr/share/manifoldcf /manifoldcf_entrypoint.sh /liveliness.sh && \
   chmod -R g=u /wait-for-it.sh /var/manifoldcf /usr/share/manifoldcf /manifoldcf_entrypoint.sh /liveliness.sh && \
-  chmod +x initialize.sh executecommand.sh start-agents.sh start-webapps.sh
+  chmod +x executecommand.sh  initialize.sh  lock-clean.sh  start-agents-2.sh  start-agents.sh  start-database.sh	start-webapps.sh  stop-agents.sh
 USER 1001
 
 # ENTRYPOINT overrides default of `/bin/sh -c`

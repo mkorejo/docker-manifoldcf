@@ -27,7 +27,7 @@ spec:
       containers:
       - env:
         - name: POSTGRES_HOSTNAME
-          value: manifoldcf-db-svc
+          value: manifoldcf-db
         - name: POSTGRES_PASSWORD
           value: "man1f0ldcf!"
         - name: POSTGRES_PORT
@@ -57,7 +57,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: manifoldcf-web-svc
+  name: manifoldcf-web
 spec:
   ports:
   - port: 8345

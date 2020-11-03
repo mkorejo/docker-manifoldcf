@@ -42,12 +42,12 @@ OpenShift clusters also need a new Security Context Constraint:
 `oc apply -f https://raw.githubusercontent.com/CrunchyData/postgres-operator/master/examples/pgo-scc.yaml`
 
 #### Create Postgres Cluster
-1. ```
-   pgo create cluster manifoldcf-db -n manifoldcf -c centos7-10.11-4.1.1 \
-     --autofail --replica-count 1
+```
+pgo create cluster manifoldcf-db -n manifoldcf -c centos7-10.11-4.1.1 \
+  --autofail --replica-count 1
 
-   pgo test manifoldcf-db -n manifoldcf
-   ```
+pgo test manifoldcf-db -n manifoldcf
+```
 
 #### Deploy ManifoldCF Web Application
 ```

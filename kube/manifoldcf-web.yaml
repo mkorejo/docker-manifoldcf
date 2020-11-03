@@ -6,7 +6,7 @@ metadata:
   name: manifoldcf-web-claim
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
@@ -18,7 +18,7 @@ metadata:
     app: manifoldcf-web
   name: manifoldcf-web
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -28,8 +28,15 @@ spec:
       - env:
         - name: POSTGRES_HOSTNAME
           value: manifoldcf-db
+        - name: POSTGRES_DB
+          value: userdb
+        - name: POSTGRES_USER
+          value: primaryuser
         - name: POSTGRES_PASSWORD
-          value: "man1f0ldcf!"
+          valueFrom:
+            secretKeyRef:
+              name: postgresql
+              key: postgresql_password
         - name: POSTGRES_PORT
           value: "5432"
         - name: POSTGRES_SSL

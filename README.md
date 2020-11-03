@@ -1,4 +1,4 @@
-# Apache ManifoldCF with Postgres
+# Apache ManifoldCF with PostgreSQL
 Docker image with Apache ManifoldCF configured to run with Postgres, and startup the agents and web application using separate Java processes.
 
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/perficientdevops/manifoldcf.svg)

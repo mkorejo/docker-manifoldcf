@@ -11,13 +11,20 @@ sed -i "s/\$POSTGRES_DB/$POSTGRES_DB/" $PROPS_FILE
 sed -i "s/\$POSTGRES_USER/$POSTGRES_USER/" $PROPS_FILE
 sed -i "s/\$POSTGRES_PASSWORD/$POSTGRES_PASSWORD/" $PROPS_FILE
 
-if [ "$1" = 'start' ]; then
+if [ "$1" = 'agent' ]; then
   echo "Initializing DB ..."
   ./initialize.sh
 
   # Run this script in background so we can also run the start-webapps script
   echo "Starting agents ..."
   ./start-agents.sh > agent-1.log 2>&1 &
+
+  echo "Starting web application ..."
+  ./start-webapps.sh
+
+elif [ "$1" = 'webapp' ]; then
+  echo "Initializing DB ..."
+  ./initialize.sh
 
   echo "Starting web application ..."
   ./start-webapps.sh

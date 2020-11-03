@@ -53,7 +53,7 @@
 
     <!-- Add your mapping connectors here -->
   <mappingconnector name="Regular expression mapper" class="org.apache.manifoldcf.authorities.mappers.regexp.RegexpMapper"/>
-    
+
     <!-- Add your authority connectors here -->
   <authorityconnector name="SharePoint/Native" class="org.apache.manifoldcf.authorities.authorities.sharepoint.SharePointAuthority"/>
   <authorityconnector name="SharePoint/ActiveDirectory" class="org.apache.manifoldcf.authorities.authorities.sharepoint.SharePointADAuthority"/>
@@ -71,7 +71,7 @@
   <authorityconnector name="AmazonS3" class="org.apache.manifoldcf.authorities.authorities.amazons3.AmazonS3Authority"/>
   <authorityconnector name="Alfresco Webscript" class="org.apache.manifoldcf.authorities.authorities.alfrescowebscript.AlfrescoAuthorityConnector"/>
   <authorityconnector name="Active Directory" class="org.apache.manifoldcf.authorities.authorities.activedirectory.ActiveDirectoryAuthority"/>
-    
+
     <!-- Add your repository connectors here -->
   <repositoryconnector name="Wiki" class="org.apache.manifoldcf.crawler.connectors.wiki.WikiConnector"/>
   <repositoryconnector name="Web" class="org.apache.manifoldcf.crawler.connectors.webcrawler.WebcrawlerConnector"/>
